@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="evae — A controlled study of latent-based generative models for single-cell perturbation prediction, showing that output head choice dominates prior architecture in determining latent space quality.">
+  <meta property="og:title" content="evae: Output Head Choice Dominates Prior Architecture in Single-Cell Perturbation Prediction">
+  <meta property="og:description" content="SOTA distribution metrics and near-scGPT biology performance with 1000× less pretraining data.">
+  <meta property="og:type" content="website">
+  <title>evae — Single-Cell Perturbation Prediction</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header id="masthead">
+  <h1><a href="#">scLatent</a></h1>
+  <nav>
+    <a href="#abstract">Abstract</a>
+    <a href="#approach">Approach</a>
+    <a href="#results">Results</a>
+    <a href="#materials">Materials</a>
+    <a href="#bibtex">BibTeX</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===== Title ===== -->
+  <div id="paper-title-wrapper">
+    <h1>Elucidating the Design Space of Generative Models for Single-Cell Perturbation Prediction</h1>
+  </div>
+  <!-- ===== Abstract ===== -->
+  <h2 id="abstract">Abstract</h2>
+  <p>
+    We introduce <code>ExpressionVAE</code>, the first discrete-latent perturbation model for single-cell data: a scalar-quantized variational autoencoder paired with a perturbation-conditioned generative prior. 
+    On Replogle and Parse~1M multiple variations of this framework achieves state-of-the-art on every distributional and all cell-eval derived generation and perturbation metrics we evaluate, with order-of-magnitude gaps on Frechet distance and MMD^2 
+    over the strongest continuous-latent baselines. We test two prior families (autoregressive and masked discrete diffusion) and find they achieve effectively identical numbers, 
+    isolating the gain to the discrete latent space. A controlled output-head ablation further reveals a single design axis governing decoder-head choice, the richness of the inference-time sampling distribution, 
+    with standard evaluation metrics partitioning into three groups whose rankings flip along it. Finally, on a held-out CRISPRi reversion benchmark of 1732 perturbations under inflammatory cytokine stress, 
+    the frozen encoder outperforms existing methods like UMAP & DE and matches the  the scGPT model (trained on 10 times larger dataset) on target ranking.
+  </p>
+
+  <!-- ===== Approach ===== -->
+  <h2 id="approach">Approach</h2>
+  <p>
+    evae factorizes perturbation prediction into two stages: (1) a <strong>FSQ-VAE encoder</strong> that maps
+    gene expression profiles into discrete or continuous latent codes, and (2) a <strong>generative prior</strong>
+    trained on those codes to predict how a cell's latent representation shifts under perturbation.
+    We perform a controlled cross-product study over two axes:
+  </p>
+
+  <div class="axes-grid">
+    <div class="axis-card">
+      <h3>Prior (generative model)</h3>
+      <ul>
+        <li>Autoregressive (AR)</li>
+        <li>Masked diffusion MDLM</li>
+        <li>Flow matching</li>
+      </ul>
+    </div>
+    <div class="axis-card">
+      <h3>Output Head (tokenization)</h3>
+      <ul>
+        <li>Cross-entropy / quantile (<code>ce-quantile</code>)</li>
+        <li>Hurdle model</li>
+        <li>MSE</li>
+        <li>Negative binomial (<code>nb</code>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>
+    We also vary quantizers (FSQ, Gaussian/continuous) across two large-scale benchmarks.
+    The output head choice is analogous to the "output tokenization" decision in LLM design
+    and proves to be the dominant architectural variable.
+  </p>
+
+  
+  <!-- ===== Materials ===== -->
+  <h2 id="materials">Materials</h2>
+  <div id="paper-materials">
+    <a href="#"><div><i class="fas fa-link" aria-hidden="true"></i> Project</div></a>
+    <a href="#"><div><i class="far fa-file-pdf" aria-hidden="true"></i> PDF (coming soon)</div></a>
+    <a href="https://github.com/sanjukta7/sclatents"><div><i class="fab fa-github" aria-hidden="true"></i> Code (coming soon)</div></a>
+  </div>
+
+  <!-- ===== BibTeX ===== -->
+  <h2 id="bibtex">BibTeX</h2>
+  <div class="bibtex-wrapper">
+    <span style="color: #cdd6f4;">Coming soon.</span>
+  </div>
+
+</main>
+
+<footer>
+  <div id="footer-left">
+    <div class="footer-icons">
+      <a href="mailto:sanjuktab2324@gmail.com" title="Email"><i class="fa-lg fa fa-envelope" aria-hidden="true"></i></a>
+      <a href="https://github.com/sanjukta7" title="GitHub"><i class="fa-lg fab fa-github" aria-hidden="true"></i></a>
+    </div>
+    <span>&copy; 2026 Sanjukta Bhattacharyya</span>
+  </div>
+  <div id="footer-right">
+    Computational Biology &middot; Generative Models &middot; Single-Cell Genomics
+  </div>
+</footer>
+
+</body>
+</html>
